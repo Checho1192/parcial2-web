@@ -8,6 +8,9 @@ function App() {
   const [espacios, setEspacios] = useState();
   const url =
     "https://gist.githubusercontent.com/josejbocanegra/0067d2b28b009140fee423cfc84e40e6/raw/6e6b11160fbcacb56621b6422684d615dc3a0d33/spaces.json";
+  const urlRooms =
+    "https://gist.githubusercontent.com/josejbocanegra/92c90d5f2171739bd4a76d639f1271ea/raw/9effd124c825f7c2a7087d4a50fa4a91c5d34558/rooms.json";
+
   useEffect(() => {
     if (navigator.onLine) {
       fetch(url)
@@ -15,6 +18,11 @@ function App() {
         .then((res) => {
           setEspacios(res);
           localStorage.setItem("spaces", JSON.stringify(res));
+        });
+      fetch(urlRooms)
+        .then((res) => res.json())
+        .then((res) => {
+          localStorage.setItem("rooms", JSON.stringify(res));
         });
     } else {
       let spaces = JSON.parse(localStorage.getItem("spaces"));
